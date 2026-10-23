@@ -83,32 +83,31 @@ flowchart LR
 
 ### 🚀 Featured Highlights
 
-<table>
-  <tr>
-    <td width="50%">
-      <h4 align="center">🤖 Multi-Agent MCP Workflow Engine</h4>
-      <p>Autonomous task planning and execution pipeline using Anthropic Claude 3.7 & Google Antigravity. Connects live databases, GitHub APIs, and web scrapers via custom MCP servers.</p>
-      <p><b>Stack:</b> Python, Claude 3.7, MCP Protocol, FastAPI, Docker</p>
-    </td>
-    <td width="50%">
-      <h4 align="center">🎨 Figma-to-Code Vibe Pipeline</h4>
-      <p>High-velocity development workflow that translates complex Figma design components directly into accessible, animated Next.js apps using Cursor AI and specialized custom skills.</p>
-      <p><b>Stack:</b> Next.js, TypeScript, Tailwind, Cursor, v0</p>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%">
-      <h4 align="center">⚡ Enterprise RAG & Neural Search</h4>
-      <p>Production document intelligence pipeline with hybrid vector embeddings, reranking models, and streaming conversational UI with sub-second latency.</p>
-      <p><b>Stack:</b> OpenAI o3-mini, pgvector, Supabase, LangChain</p>
-    </td>
-    <td width="50%">
-      <h4 align="center">✨ AI Agent Design System</h4>
-      <p>Tailored Figma UI kit and React component library specifically optimized for AI agent interfaces, generative streaming, thought-traces, and tool execution feedback.</p>
-      <p><b>Stack:</b> Figma, React, CSS Variables, Framer Motion</p>
-    </td>
-  </tr>
-</table>
+#### 🤖 Multi-Agent MCP Workflow Engine
+> Autonomous task planning and execution pipeline using Anthropic Claude 3.7 & Google Antigravity. Connects live databases, GitHub APIs, and web scrapers via custom MCP servers.
+>
+> **Tech Stack:** `Python` • `Claude 3.7` • `MCP Protocol` • `FastAPI` • `Docker`
+
+<br/>
+
+#### 🎨 Figma-to-Code Vibe Pipeline
+> High-velocity development workflow that translates complex Figma design components directly into accessible, animated Next.js apps using Cursor AI and specialized custom skills.
+>
+> **Tech Stack:** `Next.js` • `TypeScript` • `Tailwind CSS` • `Cursor AI` • `v0`
+
+<br/>
+
+#### ⚡ Enterprise RAG & Neural Search
+> Production document intelligence pipeline with hybrid vector embeddings, reranking models, and streaming conversational UI with sub-second latency.
+>
+> **Tech Stack:** `OpenAI o3-mini` • `pgvector` • `Supabase` • `LangChain`
+
+<br/>
+
+#### ✨ AI Agent Design System
+> Tailored Figma UI kit and React component library specifically optimized for AI agent interfaces, generative streaming, thought-traces, and tool execution feedback.
+>
+> **Tech Stack:** `Figma` • `React` • `CSS Variables` • `Framer Motion`
 
 ---
 
@@ -152,4 +151,3 @@ I am currently open to **high-impact Design Engineering roles, technical advisor
 <div align="center">
   <sub>Amir Niazi — Design Engineer • Powered by Autonomous Agent Workflows</sub>
 </div>
-# AmirNiazi7
