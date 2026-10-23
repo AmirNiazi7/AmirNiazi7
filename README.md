@@ -126,25 +126,11 @@ flowchart LR
 I am currently open to **high-impact Design Engineering roles, technical advisory, and select contract engagements** in AI Agent Architecture and Product Design.
 
 <p align="center">
-  <a href="https://www.linkedin.com/in/amirniaziuiux">
-    <img src="https://img.shields.io/badge/LINKEDIN-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=0d1216" alt="LinkedIn"/>
-  </a>
-  &nbsp;
-  <a href="https://github.com/AmirNiazi7">
-    <img src="https://img.shields.io/badge/GITHUB-Follow-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=0d1216" alt="GitHub"/>
-  </a>
-  &nbsp;
-  <a href="https://www.behance.net/amirniazi5">
-    <img src="https://img.shields.io/badge/BEHANCE-Portfolio-1769FF?style=for-the-badge&logo=behance&logoColor=white&labelColor=0d1216" alt="Behance"/>
-  </a>
-  &nbsp;
-  <a href="https://wa.me/923203554500">
-    <img src="https://img.shields.io/badge/WHATSAPP-Chat-25D366?style=for-the-badge&logo=whatsapp&logoColor=white&labelColor=0d1216" alt="WhatsApp"/>
-  </a>
-  &nbsp;
-  <a href="mailto:amirniazi369@gmail.com">
-    <img src="https://img.shields.io/badge/EMAIL-Get_In_Touch-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=0d1216" alt="Email"/>
-  </a>
+  <a href="https://www.linkedin.com/in/amirniaziuiux"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>&nbsp;
+  <a href="https://github.com/AmirNiazi7"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub"/></a>&nbsp;
+  <a href="https://www.behance.net/amirniazi5"><img src="https://img.shields.io/badge/Behance-1769FF?style=flat-square&logo=behance&logoColor=white" alt="Behance"/></a>&nbsp;
+  <a href="https://wa.me/923203554500"><img src="https://img.shields.io/badge/WhatsApp-25D366?style=flat-square&logo=whatsapp&logoColor=white" alt="WhatsApp"/></a>&nbsp;
+  <a href="mailto:amirniazi369@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white" alt="Email"/></a>
 </p>
 
 <br/>
