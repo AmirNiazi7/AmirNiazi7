@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Banner Studio & GitHub Profile Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --bg-base: #06080b;
+      --bg-card: #0d1117;
+      --bg-card-hover: #161b22;
+      --border: rgba(255, 255, 255, 0.12);
+      --border-accent: rgba(163, 230, 53, 0.4);
+      --lime: #a3e635;
+      --lime-glow: rgba(163, 230, 53, 0.3);
+      --cyan: #38bdf8;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Navigation Header */
+    header {
+      background: rgba(13, 17, 23, 0.85);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      padding: 16px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-badge {
+      background: var(--lime);
+      color: #000;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 5px 9px;
+      border-radius: 6px;
+    }
+
+    .brand h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--lime);
+      margin-left: 6px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+    }
+
+    .nav-btn.primary {
+      background: var(--lime);
+      color: #06080b;
+      border-color: var(--lime);
+      font-weight: 700;
+    }
+
+    .nav-btn.primary:hover {
+      background: #bef264;
+      box-shadow: 0 0 15px var(--lime-glow);
+    }
+
+    /* Main Studio Layout */
+    .studio-container {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 69px);
+      overflow: hidden;
+    }
+
+    /* Left Sidebar: Customizer Controls */
+    .sidebar {
+      width: 380px;
+      background: var(--bg-card);
+      border-right: 1px solid var(--border);
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--lime);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .style-picker {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .style-option {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .style-option:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .style-option.active {
+      border-color: var(--lime);
+      background: rgba(163, 230, 53, 0.08);
+    }
+
+    .style-meta h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .style-meta p {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .badge-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: transparent;
+    }
+
+    .style-option.active .badge-check {
+      background: var(--lime);
+      border-color: var(--lime);
+      color: #000;
+    }
+
+    /* Form Fields */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-group label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    .field-group input, .field-group textarea {
+      background: #06080b;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 9px 12px;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      transition: border-color 0.2s;
+    }
+
+    .field-group input:focus, .field-group textarea:focus {
+      outline: none;
+      border-color: var(--lime);
+    }
+
+    /* Tool Checkbox Toggles */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .tool-check-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s;
+    }
+
+    .tool-check-btn.checked {
+      background: rgba(163, 230, 53, 0.1);
+      border-color: rgba(163, 230, 53, 0.5);
+      color: #fff;
+    }
+
+    /* Center Canvas Area */
+    .canvas-view {
+      flex: 1;
+      padding: 28px 36px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.02) 0%, transparent 80%);
+    }
+
+    /* Canvas Controls Toolbar */
+    .canvas-toolbar {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 18px;
+    }
+
+    .dim-info {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dim-info b {
+      color: #fff;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toggle-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .toggle-btn.active {
+      background: rgba(163, 230, 53, 0.15);
+      border-color: var(--lime);
+      color: var(--lime);
+    }
+
+    /* Banner Frame & Responsive Wrapper */
+    .banner-preview-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transform-origin: top center;
+    }
+
+    /* Exact 1584x396 container rendered at high precision */
+    #banner-stage {
+      width: 1584px;
+      height: 396px;
+      position: relative;
+      background: #07090b;
+      transform-origin: 0 0;
+    }
+
+    /* LinkedIn Avatar Safe Zone Overlay */
+    .linkedin-avatar-overlay {
+      position: absolute;
+      bottom: 24px;
+      left: 48px;
+      width: 168px;
+      height: 168px;
+      border-radius: 50%;
+      border: 2px dashed #a3e635;
+      background: rgba(163, 230, 53, 0.15);
+      backdrop-filter: blur(4px);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      color: #ffffff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-align: center;
+      pointer-events: none;
+      box-shadow: 0 0 20px rgba(163, 230, 53, 0.25);
+    }
+
+    .linkedin-avatar-overlay.visible {
+      display: flex;
+    }
+
+    /* Tabs & Pre-rendered Asset Gallery */
+    .assets-showcase {
+      width: 100%;
+      max-width: 1100px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .assets-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .asset-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .asset-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .asset-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .asset-card-footer {
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .asset-card-footer span {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .download-link {
+      color: var(--lime);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .download-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="brand">
+      <div class="logo-badge">AGY</div>
+      <div>
+        <h1>LinkedIn Cover & GitHub Hub <span>v3.8</span></h1>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button class="nav-btn" onclick="openGitHubReadme()">
+        <span>📄 View GitHub README</span>
+      </button>
+      <button class="nav-btn primary" onclick="exportCurrentBanner()">
+        <span>⚡ Export PNG (1584x396)</span>
+      </button>
+      <button class="nav-btn" onclick="exportRetinaBanner()">
+        <span>💎 Export 2x Retina</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Studio Workspace -->
+  <div class="studio-container">
+    
+    <!-- Left Sidebar: Controls -->
+    <aside class="sidebar">
+      <div>
+        <div class="section-title">🎨 1. Choose Banner Theme</div>
+        <div class="style-picker">
+          <div class="style-option active" onclick="switchTheme('a', this)">
+            <div class="style-meta">
+              <h4>Option A: Neon Terminal Matrix</h4>
+              <p>Electric Lime • Terminal HUD • Vibe Pipeline</p>
+            </div>
+            <div class="badge-check">✓</div>
+          </div>
+
+          <div class="style-option" onclick="switchTheme('b', this)">
+            <div class="style-meta">
+              <h4>Option B: Cyber Neural HUD</h4>
+              <p>Obsidian Glass • Connected Node Architecture</p>
+            </div>
+            <div class="badge-check">✓</div>
+          </div>
+
+          <div class="style-option" onclick="switchTheme('c', this)">
+            <div class="style-meta">
+              <h4>Option C: Swiss Minimalist Dev</h4>
+              <p>Monochrome Titanium • Executive Engineering</p>
+            </div>
+            <div class="badge-check">✓</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">✏️ 2. Customize Content</div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div class="field-group">
+            <label>Name / Shell Handle</label>
+            <input type="text" id="input-handle" value="amir@design-core:~$" oninput="updateBannerLive()"/>
+          </div>
+
+          <div class="field-group">
+            <label>Role / Subheader Tag</label>
+            <input type="text" id="input-role" value="// AMIR NIAZI — DESIGN ENGINEER" oninput="updateBannerLive()"/>
+          </div>
+
+          <div class="field-group">
+            <label>Main Headline</label>
+            <input type="text" id="input-headline" value="CODE THAT CONVERTS" oninput="updateBannerLive()"/>
+          </div>
+
+          <div class="field-group">
+            <label>Subtitle / Value Prop</label>
+            <textarea id="input-subtitle" rows="2" oninput="updateBannerLive()">FROM FIGMA SPECS TO PRODUCTION AI AGENTS • VIBE CODING AT 10X SPEED</textarea>
+          </div>
+
+          <div class="field-group">
+            <label>Domain / CTA Button</label>
+            <input type="text" id="input-domain" value="Amir Niazi" oninput="updateBannerLive()"/>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">⚡ 3. Featured Tools & AI Agents</div>
+        <div class="tools-grid">
+          <div class="tool-check-btn checked"><span>Claude 3.7</span></div>
+          <div class="tool-check-btn checked"><span>OpenAI o3</span></div>
+          <div class="tool-check-btn checked"><span>Antigravity</span></div>
+          <div class="tool-check-btn checked"><span>Figma UI</span></div>
+          <div class="tool-check-btn checked"><span>Cursor AI</span></div>
+          <div class="tool-check-btn checked"><span>v0 & Lovable</span></div>
+          <div class="tool-check-btn checked"><span>MCP Swarms</span></div>
+          <div class="tool-check-btn checked"><span>Next.js 15</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Center Canvas Area -->
+    <main class="canvas-view">
+      <!-- Toolbar -->
+      <div class="canvas-toolbar">
+        <div class="dim-info">
+          <span>Dimensions: <b>1584 × 396 px</b> (LinkedIn Standard)</span>
+          <span>•</span>
+          <span>Retina 2x: <b>3168 × 792 px</b></span>
+        </div>
+
+        <div class="toolbar-actions">
+          <button class="toggle-btn" id="btn-avatar-overlay" onclick="toggleAvatarOverlay()">
+            <span>👤 Toggle LinkedIn Avatar Overlay</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Scaled Banner Container -->
+      <div class="banner-preview-wrapper" id="preview-wrapper">
+        <div id="banner-stage">
+          <!-- Banner inner content loaded via iframe or direct HTML -->
+          <iframe id="banner-frame" src="templates/banner_a.html" style="width:1584px; height:396px; border:none; display:block;"></iframe>
+
+          <!-- Safe zone overlay marker -->
+          <div class="linkedin-avatar-overlay" id="avatar-overlay">
+            <span style="font-size:16px;">👤</span>
+            <span style="font-weight:700; margin-top:4px;">YOUR PHOTO</span>
+            <span style="font-size:9px; opacity:0.8;">Safe zone verified</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Download Showcase -->
+      <div class="assets-showcase">
+        <div class="section-title">📁 Ready-To-Use Rendered Assets (Click to View / Download)</div>
+        <div class="assets-grid">
+          <!-- Option A -->
+          <div class="asset-card">
+            <img src="./assets/linkedin_banner_neon.png" alt="Neon Banner"/>
+            <div class="asset-card-footer">
+              <span>Neon Terminal Matrix</span>
+              <a href="./assets/linkedin_banner_neon_retina.png" download class="download-link">Download 2x PNG ↗</a>
+            </div>
+          </div>
+
+          <!-- Option B -->
+          <div class="asset-card">
+            <img src="./assets/linkedin_banner_cyber.png" alt="Cyber Banner"/>
+            <div class="asset-card-footer">
+              <span>Cyber Neural HUD</span>
+              <a href="./assets/linkedin_banner_cyber_retina.png" download class="download-link">Download 2x PNG ↗</a>
+            </div>
+          </div>
+
+          <!-- Option C -->
+          <div class="asset-card">
+            <img src="./assets/linkedin_banner_minimal.png" alt="Minimalist Banner"/>
+            <div class="asset-card-footer">
+              <span>Swiss Minimalist Dev</span>
+              <a href="./assets/linkedin_banner_minimal_retina.png" download class="download-link">Download 2x PNG ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- GitHub Profile Banner Card -->
+        <div class="asset-card" style="margin-top: 8px;">
+          <img src="./assets/github_header_banner.png" alt="GitHub Banner" style="max-height: 280px; object-fit: cover;"/>
+          <div class="asset-card-footer">
+            <span>GitHub Profile README Banner (Matching Dark Matrix & Lime Theme)</span>
+            <a href="./assets/github_header_banner_retina.png" download class="download-link">Download GitHub Banner ↗</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Responsive scaling for preview container
+    function scaleBannerPreview() {
+      const wrapper = document.getElementById('preview-wrapper');
+      const stage = document.getElementById('banner-stage');
+      const containerWidth = wrapper.parentElement.clientWidth - 72;
+      const targetWidth = Math.min(containerWidth, 1100);
+      const scale = targetWidth / 1584;
+
+      wrapper.style.width = (1584 * scale) + 'px';
+      wrapper.style.height = (396 * scale) + 'px';
+      stage.style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener('resize', scaleBannerPreview);
+    window.addEventListener('load', scaleBannerPreview);
+
+    // Switch between themes
+    let currentTheme = 'a';
+    function switchTheme(themeKey, element) {
+      currentTheme = themeKey;
+      document.querySelectorAll('.style-option').forEach(el => el.classList.remove('active'));
+      element.classList.add('active');
+
+      const frame = document.getElementById('banner-frame');
+      frame.src = `templates/banner_${themeKey}.html`;
+    }
+
+    // Toggle LinkedIn profile circle safe zone overlay
+    let avatarVisible = false;
+    function toggleAvatarOverlay() {
+      avatarVisible = !avatarVisible;
+      const overlay = document.getElementById('avatar-overlay');
+      const btn = document.getElementById('btn-avatar-overlay');
+      if (avatarVisible) {
+        overlay.classList.add('visible');
+        btn.classList.add('active');
+      } else {
+        overlay.classList.remove('visible');
+        btn.classList.remove('active');
+      }
+    }
+
+    // Live update banner values into the iframe
+    function updateBannerLive() {
+      const frame = document.getElementById('banner-frame');
+      const doc = frame.contentDocument || frame.contentWindow.document;
+      if (!doc) return;
+
+      const handle = document.getElementById('input-handle').value;
+      const role = document.getElementById('input-role').value;
+      const headline = document.getElementById('input-headline').value;
+      const subtitle = document.getElementById('input-subtitle').value;
+      const domain = document.getElementById('input-domain').value;
+
+      const cmdEl = doc.querySelector('.cmd-prompt span:first-child');
+      if (cmdEl) cmdEl.textContent = handle;
+
+      const roleEl = doc.querySelector('.role-tag, .subhead-mono');
+      if (roleEl) roleEl.textContent = role;
+
+      const titleEl = doc.querySelector('.hero-title, .headline, .hero-headline');
+      if (titleEl && currentTheme === 'a') {
+        titleEl.innerHTML = `CODE THAT <span class="accent">CONVERTS</span>`;
+      }
+
+      const subEl = doc.querySelector('.hero-subtitle, .tagline, .hero-desc');
+      if (subEl) subEl.textContent = subtitle;
+
+      const btnEl = doc.querySelector('.cta-button span:first-child, .arch-btn, .cta-pill');
+      if (btnEl) btnEl.textContent = domain;
+    }
+
+    // Export banners
+    function exportCurrentBanner() {
+      const filename = `assets/linkedin_banner_${currentTheme === 'a' ? 'neon' : currentTheme === 'b' ? 'cyber' : 'minimal'}.png`;
+      const link = document.createElement('a');
+      link.href = filename;
+      link.download = `linkedin_banner_1584x396.png`;
+      link.click();
+    }
+
+    function exportRetinaBanner() {
+      const filename = `assets/linkedin_banner_${currentTheme === 'a' ? 'neon' : currentTheme === 'b' ? 'cyber' : 'minimal'}_retina.png`;
+      const link = document.createElement('a');
+      link.href = filename;
+      link.download = `linkedin_banner_3168x792_retina.png`;
+      link.click();
+    }
+
+    function openGitHubReadme() {
+      window.open('README.md', '_blank');
+    }
+  </script>
+</body>
+</html>

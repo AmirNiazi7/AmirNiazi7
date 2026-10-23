@@ -1,0 +1,329 @@
+import os
+import subprocess
+import shutil
+
+GITHUB_BANNER_HTML = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Syne:wght@700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    width: 1000px;
+    height: 380px;
+    overflow: hidden;
+    background-color: #080a0c;
+    color: #ffffff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    position: relative;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 30px 30px;
+    pointer-events: none;
+  }
+
+  .glow-lime {
+    position: absolute;
+    width: 450px;
+    height: 350px;
+    top: -80px;
+    right: 80px;
+    background: radial-gradient(circle, rgba(163, 230, 53, 0.13) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .glow-cyan {
+    position: absolute;
+    width: 350px;
+    height: 250px;
+    bottom: -80px;
+    left: 80px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .top-bar {
+    position: absolute;
+    top: 22px;
+    left: 36px;
+    right: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    z-index: 5;
+  }
+
+  .terminal-prompt {
+    color: #a3e635;
+    font-weight: 600;
+  }
+
+  .terminal-prompt span.cmd {
+    color: #ffffff;
+    font-weight: 500;
+    margin-left: 6px;
+  }
+
+  .building-tag {
+    font-size: 11px;
+    color: #94a3b8;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .container {
+    position: relative;
+    width: 1000px;
+    height: 380px;
+    padding: 75px 36px 30px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .left-hero {
+    display: flex;
+    flex-direction: column;
+    max-width: 580px;
+  }
+
+  .role-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: #a3e635;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .title-huge {
+    font-family: 'Syne', sans-serif;
+    font-size: 50px;
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    color: #ffffff;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .title-huge span.accent {
+    color: #a3e635;
+  }
+
+  .bio-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: #94a3b8;
+    letter-spacing: 0.04em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+
+  .badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    align-items: center;
+  }
+
+  .badge-item {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(18, 24, 28, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #e2e8f0;
+  }
+
+  .badge-item.active {
+    border-color: rgba(163, 230, 53, 0.45);
+    background: rgba(163, 230, 53, 0.08);
+    color: #bef264;
+  }
+
+  .right-widget {
+    width: 320px;
+    background: #0d1216;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .widget-head {
+    background: #141b21;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .dots {
+    display: flex;
+    gap: 5px;
+  }
+
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+  .dot.red { background: #ff5f56; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #27c93f; }
+
+  .widget-filename {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #94a3b8;
+  }
+
+  .widget-body {
+    padding: 14px 14px 12px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cmd-line {
+    color: #a3e635;
+    font-weight: 700;
+  }
+
+  .cmd-out {
+    color: #f1f5f9;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .widget-btn {
+    margin-top: 6px;
+    background: #a3e635;
+    color: #090d0b;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 800;
+    text-align: center;
+    padding: 10px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: 0 4px 15px rgba(163, 230, 53, 0.35);
+  }
+</style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="glow-lime"></div>
+  <div class="glow-cyan"></div>
+
+  <div class="top-bar">
+    <div class="terminal-prompt">
+      <span>amir@github:~$</span>
+      <span class="cmd">cat README.md</span>
+    </div>
+    <div class="building-tag">DESIGN ENGINEER // AI</div>
+  </div>
+
+  <div class="container">
+    <div class="left-hero">
+      <div class="role-label">// AMIR NIAZI — DESIGN ENGINEER</div>
+      <div class="title-huge">CODE THAT<br/><span class="accent">CONVERTS</span></div>
+      <div class="bio-text">HI, I'M AMIR NIAZI — DESIGN ENGINEER.</div>
+
+      <div class="badges-row">
+        <span class="badge-item active">Claude 3.7</span>
+        <span class="badge-item active">OpenAI o3</span>
+        <span class="badge-item active">Google Antigravity</span>
+        <span class="badge-item">Figma</span>
+        <span class="badge-item">Cursor AI</span>
+        <span class="badge-item">v0 / Lovable</span>
+        <span class="badge-item">MCP Agents</span>
+      </div>
+    </div>
+
+    <div class="right-widget">
+      <div class="widget-head">
+        <div class="dots">
+          <div class="dot red"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="widget-filename">amir_niazi.sh</div>
+      </div>
+      <div class="widget-body">
+        <div class="cmd-line">$ whoami</div>
+        <div class="cmd-out">Amir Niazi — Design Engineer</div>
+        
+        <div class="cmd-line">$ agent.focus</div>
+        <div class="cmd-out">Figma Systems & AI Agent Workflows</div>
+
+        <a class="widget-btn" href="#">
+          <span>Amir Niazi</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+"""
+
+tpl_path = "/Users/nael/Desktop/Amir/githubcover/templates/github_banner.html"
+with open(tpl_path, "w") as f:
+    f.write(GITHUB_BANNER_HTML)
+
+out_png = "/Users/nael/Desktop/Amir/githubcover/assets/github_header_banner.png"
+out_png_retina = "/Users/nael/Desktop/Amir/githubcover/assets/github_header_banner_retina.png"
+CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+
+subprocess.run([
+    CHROME, "--headless=new", "--disable-gpu", "--virtual-time-budget=2000",
+    "--window-size=1000,380", f"--screenshot={out_png}", f"file://{tpl_path}"
+], capture_output=True)
+
+subprocess.run([
+    CHROME, "--headless=new", "--disable-gpu", "--virtual-time-budget=2000",
+    "--window-size=1000,380", "--force-device-scale-factor=2",
+    f"--screenshot={out_png_retina}", f"file://{tpl_path}"
+], capture_output=True)
+
+ARTIFACTS_DIR = "/Users/nael/.gemini/antigravity-ide/brain/8ff77638-874e-4f02-9d9d-acc520b47b4f"
+shutil.copy(out_png, os.path.join(ARTIFACTS_DIR, "github_header_banner.png"))
+shutil.copy(out_png_retina, os.path.join(ARTIFACTS_DIR, "github_header_banner_retina.png"))
+
+print("GitHub profile banner for Amir Niazi — Design Engineer rendered successfully!")

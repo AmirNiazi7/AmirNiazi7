@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    width: 1584px;
+    height: 396px;
+    overflow: hidden;
+    background: #06080d;
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    position: relative;
+  }
+
+  .ambient-mesh {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 45%),
+      radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.18) 0%, transparent 40%),
+      radial-gradient(circle at 55% 80%, rgba(56, 189, 248, 0.12) 0%, transparent 50%),
+      linear-gradient(180deg, rgba(6, 8, 13, 0.6) 0%, #06080d 100%);
+  }
+
+  .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.7;
+  }
+
+  .container {
+    position: relative;
+    width: 1584px;
+    height: 396px;
+    padding: 34px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .hero-block {
+    margin-left: 285px;
+    max-width: 680px;
+  }
+
+  .status-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 14px;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: #34d399;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+  }
+
+  .pulse-indicator {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 10px #10b981;
+  }
+
+  .hero-headline {
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+    background: linear-gradient(180deg, #FFFFFF 20%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-headline span.gradient-text {
+    background: linear-gradient(90deg, #38bdf8 0%, #34d399 50%, #a3e635 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .tech-cards-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .glass-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    font-size: 13px;
+    font-weight: 600;
+    color: #f1f5f9;
+  }
+
+  .glass-card.glow-border {
+    border-color: rgba(56, 189, 248, 0.45);
+    background: rgba(56, 189, 248, 0.08);
+  }
+
+  .orchestration-hud {
+    width: 530px;
+    background: rgba(13, 17, 23, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 18px 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.1);
+  }
+
+  .hud-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .hud-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nodes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .node-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 9px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .node-box.active {
+    border-color: rgba(52, 211, 153, 0.4);
+    background: rgba(16, 185, 129, 0.08);
+  }
+
+  .node-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #64748b;
+  }
+
+  .node-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .hud-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #94a3b8;
+  }
+
+  .cta-pill {
+    background: linear-gradient(135deg, #38bdf8 0%, #34d399 100%);
+    color: #04121a;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 6px 16px;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+  }
+</style>
+</head>
+<body>
+  <div class="ambient-mesh"></div>
+  <div class="grid-overlay"></div>
+
+  <div class="container">
+    <div class="hero-block">
+      <div class="status-tag">
+        <div class="pulse-indicator"></div>
+        <span>AMIR NIAZI // DESIGN ENGINEER</span>
+      </div>
+
+      <h1 class="hero-headline">
+        Architecting <span class="gradient-text">Autonomous</span><br/>Design Systems & AI Workflows
+      </h1>
+
+      <p class="hero-desc">
+        Amir Niazi — Design Engineer • Model Context Protocol • Figma to Code at Velocity
+      </p>
+
+      <div class="tech-cards-row">
+        <div class="glass-card glow-border">
+          <span style="color:#f59e0b;">✦</span>
+          <span>Claude 3.7</span>
+        </div>
+        <div class="glass-card glow-border">
+          <span style="color:#10b981;">✦</span>
+          <span>OpenAI o3 / GPT-4o</span>
+        </div>
+        <div class="glass-card glow-border">
+          <span style="color:#38bdf8;">✦</span>
+          <span>Antigravity</span>
+        </div>
+        <div class="glass-card">
+          <span>🎨 Figma UI</span>
+        </div>
+        <div class="glass-card">
+          <span>⚡ Cursor / v0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="orchestration-hud">
+      <div class="hud-header">
+        <div class="hud-title">
+          <span style="color:#34d399;">●</span>
+          <span>DESIGN ENGINEERING PIPELINE</span>
+        </div>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#38bdf8;">AMIR NIAZI</span>
+      </div>
+
+      <div class="nodes-grid">
+        <div class="node-box">
+          <div class="node-label">01 // DESIGN</div>
+          <div class="node-name">Figma Systems</div>
+        </div>
+        <div class="node-box active">
+          <div class="node-label">02 // BRAIN</div>
+          <div class="node-name">Claude & OpenAI</div>
+        </div>
+        <div class="node-box active">
+          <div class="node-label">03 // AGENT</div>
+          <div class="node-name">Google Antigravity</div>
+        </div>
+        <div class="node-box active">
+          <div class="node-label">04 // TOOLS</div>
+          <div class="node-name">MCP Protocol</div>
+        </div>
+        <div class="node-box">
+          <div class="node-label">05 // VELOCITY</div>
+          <div class="node-name">Vibe IDE (Cursor)</div>
+        </div>
+        <div class="node-box">
+          <div class="node-label">06 // DEPLOY</div>
+          <div class="node-name">Production App</div>
+        </div>
+      </div>
+
+      <div class="hud-stats">
+        <span>STATUS: DESIGN ENGINEER VERIFIED</span>
+        <a class="cta-pill" href="#">Amir Niazi ↗</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

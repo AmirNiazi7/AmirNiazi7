@@ -1,0 +1,116 @@
+import os
+
+def create_svg_assets():
+    svg_neon = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1584 396" width="1584" height="396">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&amp;family=Syne:wght@800&amp;family=Inter:wght@600;700');
+      .font-mono { font-family: 'JetBrains Mono', monospace; }
+      .font-syne { font-family: 'Syne', sans-serif; font-weight: 800; }
+      .font-sans { font-family: 'Inter', sans-serif; }
+    </style>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M 36 0 L 0 0 0 36" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow-lime" cx="80%" cy="20%" r="50%">
+      <stop offset="0%" stop-color="#a3e635" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#a3e635" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-cyan" cx="25%" cy="80%" r="45%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lime-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a3e635"/>
+      <stop offset="100%" stop-color="#4ade80"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1584" height="396" fill="#07090b"/>
+  <rect width="1584" height="396" fill="url(#grid)"/>
+  <rect width="1584" height="396" fill="url(#glow-lime)"/>
+  <rect width="1584" height="396" fill="url(#glow-cyan)"/>
+
+  <text x="48" y="38" class="font-mono" font-size="11" fill="#64748b" letter-spacing="1">SYSTEM: <tspan fill="#a3e635">AI-DESIGN-RUNNER // v3.8</tspan>   ENGINEER: <tspan fill="#a3e635">AMIR NIAZI</tspan>   ROLE: <tspan fill="#a3e635">DESIGN ENGINEER</tspan></text>
+
+  <g transform="translate(330, 80)">
+    <text x="0" y="24" class="font-mono" font-size="13" font-weight="700" fill="#a3e635">amir@design-core:~$ <tspan fill="#ffffff" font-weight="500">cat workflow.ts</tspan></text>
+    
+    <rect x="290" y="10" width="135" height="22" rx="11" fill="rgba(163,230,53,0.08)" stroke="rgba(163,230,53,0.3)" stroke-width="1"/>
+    <circle cx="304" cy="21" r="3.5" fill="#a3e635"/>
+    <text x="314" y="25" class="font-mono" font-size="10.5" font-weight="700" fill="#bef264">AGENTS ACTIVE</text>
+
+    <text x="0" y="60" class="font-mono" font-size="14" font-weight="700" fill="#a3e635" letter-spacing="1.5">// AMIR NIAZI — DESIGN ENGINEER</text>
+
+    <text x="0" y="112" class="font-syne" font-size="46" fill="#ffffff" letter-spacing="-1">CODE THAT <tspan fill="url(#lime-grad)">CONVERTS</tspan></text>
+
+    <text x="0" y="146" class="font-mono" font-size="13" fill="#94a3b8" letter-spacing="0.5">FROM FIGMA SPECS TO PRODUCTION AI AGENTS • VIBE CODING AT 10X SPEED</text>
+
+    <g transform="translate(0, 172)">
+      <rect x="0" y="0" width="102" height="28" rx="6" fill="#12181c" stroke="#a3e635" stroke-opacity="0.45"/>
+      <text x="12" y="18" class="font-sans" font-size="11.5" font-weight="700" fill="#ffffff">★ Claude 3.7</text>
+
+      <rect x="110" y="0" width="138" height="28" rx="6" fill="#12181c" stroke="#a3e635" stroke-opacity="0.45"/>
+      <text x="122" y="18" class="font-sans" font-size="11.5" font-weight="700" fill="#ffffff">● OpenAI o3/4o</text>
+
+      <rect x="256" y="0" width="146" height="28" rx="6" fill="#12181c" stroke="#a3e635" stroke-opacity="0.45"/>
+      <text x="268" y="18" class="font-sans" font-size="11.5" font-weight="700" fill="#ffffff">▲ Antigravity (AGY)</text>
+
+      <rect x="410" y="0" width="90" height="28" rx="6" fill="#12181c" stroke="rgba(255,255,255,0.15)"/>
+      <text x="422" y="18" class="font-sans" font-size="11.5" font-weight="600" fill="#e2e8f0">🎨 Figma UI</text>
+
+      <rect x="508" y="0" width="94" height="28" rx="6" fill="#12181c" stroke="rgba(255,255,255,0.15)"/>
+      <text x="520" y="18" class="font-sans" font-size="11.5" font-weight="600" fill="#e2e8f0">⚡ Cursor AI</text>
+
+      <rect x="0" y="36" width="130" height="28" rx="6" fill="#12181c" stroke="rgba(255,255,255,0.15)"/>
+      <text x="12" y="54" class="font-sans" font-size="11.5" font-weight="600" fill="#e2e8f0">🔌 MCP Protocol</text>
+
+      <rect x="138" y="36" width="115" height="28" rx="6" fill="#12181c" stroke="rgba(255,255,255,0.15)"/>
+      <text x="150" y="54" class="font-sans" font-size="11.5" font-weight="600" fill="#e2e8f0">▲ v0 &amp; Lovable</text>
+    </g>
+  </g>
+
+  <g transform="translate(1005, 75)">
+    <rect width="530" height="235" rx="12" fill="#0d1216" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+    
+    <path d="M 0 12 Q 0 0 12 0 L 518 0 Q 530 0 530 12 L 530 36 L 0 36 Z" fill="#141b21"/>
+    <circle cx="20" cy="18" r="5" fill="#ff5f56"/>
+    <circle cx="36" cy="18" r="5" fill="#ffbd2e"/>
+    <circle cx="52" cy="18" r="5" fill="#27c93f"/>
+    <text x="75" y="22" class="font-mono" font-size="11" fill="#94a3b8">amir_niazi.ts</text>
+    <rect x="445" y="8" width="70" height="20" rx="4" fill="rgba(163,230,53,0.12)"/>
+    <text x="456" y="22" class="font-mono" font-size="10" font-weight="700" fill="#a3e635">LIVE HUD</text>
+
+    <text x="20" y="65" class="font-mono" font-size="12" fill="#a3e635" font-weight="700">$ <tspan fill="#ffffff">design_engineer.init({</tspan> <tspan fill="#64748b">stack:</tspan> <tspan fill="#38bdf8">["Figma", "Claude", "AGY"]</tspan> <tspan fill="#ffffff">})</tspan></text>
+
+    <g transform="translate(20, 80)">
+      <rect width="490" height="42" rx="6" fill="rgba(0,0,0,0.4)" stroke="rgba(255,255,255,0.08)"/>
+      <text x="14" y="26" class="font-sans" font-size="11" font-weight="700" fill="#ff7262">🎨 Figma Specs</text>
+      <text x="135" y="26" class="font-mono" font-size="12" fill="#64748b">➔</text>
+      <text x="160" y="26" class="font-sans" font-size="11" font-weight="700" fill="#a3e635">⚡ Vibe + Agent Swarm</text>
+      <text x="345" y="26" class="font-mono" font-size="12" fill="#64748b">➔</text>
+      <text x="370" y="26" class="font-sans" font-size="11" font-weight="700" fill="#38bdf8">🚀 Prod App</text>
+    </g>
+
+    <text x="20" y="152" class="font-mono" font-size="11.5" fill="#64748b">▶ Speciality: <tspan fill="#ffffff">Amir Niazi — Design Engineer</tspan> <tspan fill="#a3e635" font-weight="700">✔ VERIFIED</tspan></text>
+    <text x="20" y="174" class="font-mono" font-size="11.5" fill="#64748b">▶ Velocity: <tspan fill="#ffffff">Autonomous Agent Loop</tspan> <tspan fill="#38bdf8" font-weight="700">⚡ 10x Velocity</tspan></text>
+
+    <g transform="translate(0, 195)">
+      <line x1="20" y1="0" x2="510" y2="0" stroke="rgba(255,255,255,0.08)"/>
+      <circle cx="28" cy="22" r="3.5" fill="#a3e635"/>
+      <text x="38" y="26" class="font-mono" font-size="10.5" fill="#94a3b8">OPEN FOR HIGH-IMPACT PROJECTS</text>
+      
+      <g transform="translate(365, 8)">
+        <rect width="145" height="28" rx="6" fill="#a3e635"/>
+        <text x="24" y="18" class="font-mono" font-size="12" font-weight="800" fill="#090d0b">Amir Niazi →</text>
+      </g>
+    </g>
+  </g>
+</svg>"""
+
+    with open("/Users/nael/Desktop/Amir/githubcover/assets/linkedin_banner_neon.svg", "w") as f:
+        f.write(svg_neon)
+
+    print("SVG assets generated for Amir Niazi — Design Engineer!")
+
+create_svg_assets()
