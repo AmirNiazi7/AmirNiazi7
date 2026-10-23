@@ -11,7 +11,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(TEMPLATES_DIR, exist_ok=True)
 
 # -------------------------------------------------------------
-# Template A: Neon Terminal Matrix (Amir Niazi — Design Engineer)
+# Template A: Neon Terminal Matrix (Balanced Margin, Zero Left Void)
 # -------------------------------------------------------------
 HTML_A = """<!DOCTYPE html>
 <html lang="en">
@@ -70,7 +70,7 @@ HTML_A = """<!DOCTYPE html>
   .top-telemetry {
     position: absolute;
     top: 24px;
-    left: 48px;
+    left: 64px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     color: #64748b;
@@ -89,7 +89,7 @@ HTML_A = """<!DOCTYPE html>
     position: relative;
     width: 1584px;
     height: 396px;
-    padding: 38px 48px 30px 48px;
+    padding: 38px 64px 30px 64px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -97,11 +97,11 @@ HTML_A = """<!DOCTYPE html>
   }
 
   .main-content {
-    margin-left: 285px;
+    margin-left: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 690px;
+    max-width: 820px;
   }
 
   .top-meta {
@@ -150,12 +150,12 @@ HTML_A = """<!DOCTYPE html>
     font-weight: 700;
     color: #a3e635;
     letter-spacing: 0.08em;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
 
   .hero-title {
     font-family: 'Syne', sans-serif;
-    font-size: 45px;
+    font-size: 46px;
     font-weight: 800;
     line-height: 1.02;
     letter-spacing: -0.035em;
@@ -173,7 +173,7 @@ HTML_A = """<!DOCTYPE html>
 
   .hero-subtitle {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-size: 13.5px;
     color: #94a3b8;
     letter-spacing: 0.02em;
     margin-bottom: 16px;
@@ -503,7 +503,7 @@ HTML_A = """<!DOCTYPE html>
 """
 
 # -------------------------------------------------------------
-# Template B: Cyber Spatial & Neural Architecture (Amir Niazi)
+# Template B: Cyber Spatial & Neural Architecture (Balanced Margin)
 # -------------------------------------------------------------
 HTML_B = """<!DOCTYPE html>
 <html lang="en">
@@ -552,7 +552,7 @@ HTML_B = """<!DOCTYPE html>
     position: relative;
     width: 1584px;
     height: 396px;
-    padding: 34px 50px;
+    padding: 34px 64px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -560,8 +560,8 @@ HTML_B = """<!DOCTYPE html>
   }
 
   .hero-block {
-    margin-left: 285px;
-    max-width: 680px;
+    margin-left: 0;
+    max-width: 820px;
   }
 
   .status-tag {
@@ -811,7 +811,7 @@ HTML_B = """<!DOCTYPE html>
 """
 
 # -------------------------------------------------------------
-# Template C: Minimalist Monochrome & Swiss Grid (Amir Niazi — Design Engineer)
+# Template C: Minimalist Monochrome & Swiss Grid (Zero Left Gap, Perfectly Balanced)
 # -------------------------------------------------------------
 HTML_C = """<!DOCTYPE html>
 <html lang="en">
@@ -850,7 +850,7 @@ HTML_C = """<!DOCTYPE html>
     position: relative;
     width: 1584px;
     height: 396px;
-    padding: 40px 52px;
+    padding: 38px 64px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -858,17 +858,17 @@ HTML_C = """<!DOCTYPE html>
   }
 
   .hero {
-    margin-left: 285px;
-    max-width: 700px;
+    margin-left: 0;
+    max-width: 820px;
   }
 
   .subhead-mono {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 700;
     color: #a3e635;
     letter-spacing: 0.12em;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .headline {
@@ -876,12 +876,12 @@ HTML_C = """<!DOCTYPE html>
     font-weight: 700;
     line-height: 1.04;
     letter-spacing: -0.04em;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
 
   .tagline {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-size: 13.5px;
     color: #94a3b8;
     line-height: 1.6;
     margin-bottom: 18px;
@@ -914,14 +914,15 @@ HTML_C = """<!DOCTYPE html>
   }
 
   .arch-panel {
-    width: 520px;
+    width: 530px;
     background: #0f121a;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 12px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 14px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
   }
 
   .arch-header {
@@ -1047,4 +1048,4 @@ with open(f"{TEMPLATES_DIR}/banner_b.html", "w") as f:
 with open(f"{TEMPLATES_DIR}/banner_c.html", "w") as f:
     f.write(HTML_C)
 
-print("Updated banner HTML templates for Amir Niazi — Design Engineer.")
+print("Updated banner HTML templates with 0 left margin void.")

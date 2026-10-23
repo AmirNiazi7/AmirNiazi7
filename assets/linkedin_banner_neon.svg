@@ -30,7 +30,7 @@
 
   <text x="48" y="38" class="font-mono" font-size="11" fill="#64748b" letter-spacing="1">SYSTEM: <tspan fill="#a3e635">AI-DESIGN-RUNNER // v3.8</tspan>   ENGINEER: <tspan fill="#a3e635">AMIR NIAZI</tspan>   ROLE: <tspan fill="#a3e635">DESIGN ENGINEER</tspan></text>
 
-  <g transform="translate(330, 80)">
+  <g transform="translate(64, 80)">
     <text x="0" y="24" class="font-mono" font-size="13" font-weight="700" fill="#a3e635">amir@design-core:~$ <tspan fill="#ffffff" font-weight="500">cat workflow.ts</tspan></text>
     
     <rect x="290" y="10" width="135" height="22" rx="11" fill="rgba(163,230,53,0.08)" stroke="rgba(163,230,53,0.3)" stroke-width="1"/>
